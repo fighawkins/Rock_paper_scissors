@@ -39,7 +39,7 @@ else {
     return `You Lose! ${computerSelection} beats ${playerSelection}`
 }
 }
-
-const playerSelection = "Rock";
+let playerInput = prompt( "Rock, Paper, or Scissors?");
+const playerSelection = playerInput;
 const computerSelection = getComputerChoice();
 console.log(playRound(playerSelection,computerSelection));
