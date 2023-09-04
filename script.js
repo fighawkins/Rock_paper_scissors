@@ -1,12 +1,30 @@
+const buttons = document.querySelectorAll('button');
+const resultDiv = document.querySelectorAll('result');
 
-const myArray = ["rock", "paper", "scissors"];
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+      // When any button is clicked, this function is executed.
 
+      // Get the id (choice) of the button clicked, representing the player's choice.
+      const playerChoice = button.id;
+
+      // Generate a random computer choice using the getComputerChoice() function.
+      const computerChoice = getComputerChoice();
+
+      // Determine the winner of the game using the getWinner() function.
+      const winner = checkWinner(playerChoice, computerChoice);
+
+      // Update the text content of an element with the id 'resultDiv' to display the game result.
+      // It shows the player's choice, the computer's choice, and the winner.
+      resultDiv.textContent = `You chose ${playerChoice}. Computer chose ${computerChoice}. ${winner}`;
+  });
+});
 function getComputerChoice() {
-  const randomElement = myArray[Math.floor(Math.random() * myArray.length)];
-  return randomElement;
-}
+  const choices = ['rock', 'paper', 'scissors'];
+  const randomIndex = Math.floor(Math.random() * 3);
+  return choices[randomIndex];
 
-function checkWinner(playerSelection, computerSelection) {
+function checkWinner(playerChoice, computerChoice) {
   if (playerSelection === computerSelection) {
     return "Tie";
   } else if (
@@ -20,62 +38,13 @@ function checkWinner(playerSelection, computerSelection) {
   }
 }
 
-function playRound(playerSelection, computerSelection) {
-  const result = checkWinner(playerSelection, computerSelection);
-  if (result === "Tie") {
-    return "It's a tie!";
-  } else if (result === "Player") {
-    return `You Win! ${playerSelection} beats ${computerSelection}`;
-  } else {
-    return `You Lose! ${computerSelection} beats ${playerSelection}`;
-  }
-}
 
-function getPlayerChoice() {
-  let validatedInput = false;
-  while (validatedInput == false) {
-    const choice = prompt ("rock paper scissors");
-    if (choice === null) {
-      continue;
+
     }
-    const choiceInLower = choice.toLowerCase();
-    if (myArray.includes(choiceInLower)) {
-      validatedInput = true;
-      return choiceInLower;
-    }
-  }
-}
-
-function game() {
-  let scorePlayer = 0;
-  let scoreComputer = 0;
-  console.log("Welcome!");
-  for (let i = 0; i < 5; i++) {
-    const playerSelection = getPlayerChoice();
-    const computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
-  if (checkWinner(playerSelection, computerSelection) == "Player"){
-    scorePlayer++
-  }
-  else if (checkWinner(playerSelection, computerSelection) == "Computer"){
-    scoreComputer++
-  }
-}
+  
 
 
-  console.log("Game Over");
-  if (scorePlayer > scoreComputer) {
-    console.log("Player was the winner");
-  } else if (scoreComputer > scorePlayer) {
-    console.log("Computer wins!");
-  } else {
-    console.log("We have a tie!");
-  }
-}
 
-document.addEventListener("DOMContentLoaded", function () {
-    game();
-});
 
 
 
